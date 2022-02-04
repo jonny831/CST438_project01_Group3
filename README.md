@@ -8,4 +8,4 @@
 -Allow users to login,logout, and register. Display news stories from newsapi
 -[A Link and description of the API being used in the application](https://newsapi.org/)
 
-![](https://i.imgur.com/ZMsoWza.jpg)
+![](https://i.imgur.com/I1qAk94.jpg)
