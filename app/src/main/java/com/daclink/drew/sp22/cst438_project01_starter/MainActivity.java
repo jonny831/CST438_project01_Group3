@@ -17,11 +17,16 @@ import com.daclink.drew.sp22.cst438_project01_starter.databinding.ActivityMainBi
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+   // EditText username, password;
+   // Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        //loginButton = findViewById(R.id.login_btn);
 
         setSupportActionBar(binding.toolbar);
 

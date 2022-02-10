@@ -1,6 +1,7 @@
 package com.daclink.drew.sp22.cst438_project01_starter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +22,25 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     private FragmentSecondBinding binding;
 
+    User user;
+    UserDAO userDAO;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
 
-        User u = new User();
+        // Check if logged in
+        userDAO = UserDb.getInstance(getContext()).getPersonDAO();
+        if (getArguments() != null) {
+            int userId = getArguments().getInt(FirstFragment.USER_ID);
+            user = userDAO.getUser(userId);
+            if(user == null) { logout(); }
+        } else { logout(); }
+
         binding = FragmentSecondBinding.inflate(inflater, container, false);
-        binding.newsSourceBtn.setOnClickListener(v1 -> updateNewsSource(v1, u));
+        binding.newsSourceBtn.setOnClickListener(v1 -> updateNewsSource(v1, user));
         return binding.getRoot();
 
     }
@@ -44,6 +55,8 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
+
+        binding.logoutBtn.setOnClickListener(view1 -> logout());
     }
 
     @Override
@@ -64,6 +77,14 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         output.setText("");
         output.setHint("Success! News set to " + u.getNewsSource());
 
+    }
+
+    public void logout() {
+        SharedPreferences sharedPref = requireContext().getSharedPreferences("SAVED_PREFS", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(FirstFragment.USER_ID, -1).apply();
+        NavHostFragment.findNavController(SecondFragment.this)
+                .navigate(R.id.action_SecondFragment_to_FirstFragment);
     }
 
     @Override

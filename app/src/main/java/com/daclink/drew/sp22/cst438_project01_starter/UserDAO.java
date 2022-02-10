@@ -11,10 +11,19 @@ package com.daclink.drew.sp22.cst438_project01_starter;
 public interface UserDAO {
     @Insert
     void insertUser(User user);
+
     @Update
     void updateUser(User user);
+
     @Delete
     void deleteUser(User user);
+
     @Query("SELECT * FROM user")
     List<User> listUsers();
+
+    @Query("SELECT * FROM user WHERE uid = :userId")
+    User getUser(int userId);
+
+    @Query("SELECT * FROM user WHERE username = :username")
+    User getUser(String username);
 }
