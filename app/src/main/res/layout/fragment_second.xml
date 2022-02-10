@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/logout_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout" />
+
     <EditText
         android:id="@+id/search"
         android:layout_width="match_parent"
@@ -34,8 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Update Filters"
-
-
         />
     <EditText
         android:id="@+id/newsSourceEditText"
@@ -43,16 +47,15 @@
         android:layout_height="wrap_content"
         android:hint=" News Source (i.e. Reuters)"
         android:layout_marginTop="50dp"
-
         />
     <Button
         android:id="@+id/newsSourceBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Update News Source"
-
-
         />
+
+
 
 
 </LinearLayout>
