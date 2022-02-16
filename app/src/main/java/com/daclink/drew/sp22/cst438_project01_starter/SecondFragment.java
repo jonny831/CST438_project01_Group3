@@ -1,6 +1,7 @@
 package com.daclink.drew.sp22.cst438_project01_starter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,12 +25,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     User user;
     UserDAO userDAO;
+    Button updateFilter;
+    Button newsSource;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+//        Button updateFilter = (Button)findViewById(R.id.addBtn);
+
 
         // Check if logged in
         userDAO = UserDb.getInstance(getContext()).getPersonDAO();
@@ -42,6 +47,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         binding.newsSourceBtn.setOnClickListener(v1 -> updateNewsSource(v1, user));
         return binding.getRoot();
+
 
     }
 
@@ -85,6 +91,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         editor.putInt(FirstFragment.USER_ID, -1).apply();
         NavHostFragment.findNavController(SecondFragment.this)
                 .navigate(R.id.action_SecondFragment_to_FirstFragment);
+    }
+
+
+//    @Override
+//    public void onClick(View v) {
+//
+//    }
+    public void openNews(){
+        Intent intent = new Intent(getActivity(), NewsView.class);
+        startActivity(intent);
     }
 
     @Override
