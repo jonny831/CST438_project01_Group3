@@ -10,43 +10,62 @@
         android:layout_height="wrap_content"
         android:text="@string/logout" />
 
-    <EditText
-        android:id="@+id/search"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Search"
-        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
 
-        />
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="254dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/search" />
 
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/genre"
         android:orientation="horizontal">
-        <RadioButton android:id="@+id/fiction"
+
+        <RadioGroup
+            android:id="@+id/genre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date" />
-        <RadioButton android:id="@+id/memoir"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/fiction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date" />
+
+            <RadioButton
+                android:id="@+id/memoir"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Country" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/addBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Country" />
-    </RadioGroup>
+            android:text="Update Filters" />
+    </LinearLayout>
 
-
-    <Button
-        android:id="@+id/addBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Update Filters"
-        />
     <EditText
         android:id="@+id/newsSourceEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint=" News Source (i.e. Reuters)"
-        android:layout_marginTop="50dp"
         />
     <Button
         android:id="@+id/newsSourceBtn"
@@ -55,7 +74,8 @@
         android:text="Update News Source"
         />
 
-
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_results_recycler_view" />
 </LinearLayout>
