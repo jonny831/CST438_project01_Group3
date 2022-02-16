@@ -72,6 +72,12 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (!user.getNewsSource().equals("")) {
+            TextView output = binding.newsSourceEditText;
+            output.setText("");
+            output.setHint("News source currently set to " + user.getNewsSource());
+        }
+
         RecyclerView recyclerView = view.findViewById(R.id.search_results_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -98,10 +104,11 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void updateNewsSource(View v, User u) {
         System.out.println("SUCCESSFULLY UPDATED USER NEWS SOURCE");
         String news = binding.newsSourceEditText.getText().toString();
-        u.setNewsSource(news);
+        user.setNewsSource(news);
+        userDAO.updateUser(user);
         TextView output = binding.newsSourceEditText;
         output.setText("");
-        output.setHint("Success! News set to " + u.getNewsSource());
+        output.setHint("Success! News set to " + user.getNewsSource());
 
     }
 
