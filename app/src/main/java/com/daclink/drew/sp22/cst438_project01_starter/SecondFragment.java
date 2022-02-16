@@ -8,25 +8,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.daclink.drew.sp22.cst438_project01_starter.api_implementation.NewsResultsAdapter;
+import com.daclink.drew.sp22.cst438_project01_starter.api_implementation.models.NewsResultsResponse;
+import com.daclink.drew.sp22.cst438_project01_starter.api_implementation.view_model.NewsViewModel;
 import com.daclink.drew.sp22.cst438_project01_starter.databinding.FragmentSecondBinding;
-
-import java.util.List;
 
 public class SecondFragment extends Fragment implements View.OnClickListener {
 
     private FragmentSecondBinding binding;
 
-    User user;
-    UserDAO userDAO;
-    Button updateFilter;
-    Button newsSource;
+    private User user;
+    private UserDAO userDAO;
+    public Button updateFilter;
+    public Button newsSource;
+    private NewsViewModel viewModel;
+    private NewsResultsAdapter adapter;
+    private EditText searchText;
 
     @Override
     public View onCreateView(
@@ -44,6 +52,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             if(user == null) { logout(); }
         } else { logout(); }
 
+        // Setup view model
+        adapter = new NewsResultsAdapter();
+        viewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
+        viewModel.init();
+        viewModel.getVolumesResponseLiveData().observe(getViewLifecycleOwner(), newsResponse -> {
+            if (newsResponse != null) {
+                adapter.setResults(newsResponse.getResults());
+            }
+        });
+
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         binding.newsSourceBtn.setOnClickListener(v1 -> updateNewsSource(v1, user));
         return binding.getRoot();
@@ -54,6 +72,11 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        RecyclerView recyclerView = view.findViewById(R.id.search_results_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+        searchText = view.findViewById(R.id.search);
+
         binding.genre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,16 +86,13 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         });
 
         binding.logoutBtn.setOnClickListener(view1 -> logout());
+        binding.searchBtn.setOnClickListener(view1 -> search());
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public void sayHello() {
-        System.out.println("Hello");
     }
 
     public void updateNewsSource(View v, User u) {
@@ -83,6 +103,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         output.setText("");
         output.setHint("Success! News set to " + u.getNewsSource());
 
+    }
+
+    public void search() {
+        viewModel.searchNews(searchText.getText().toString(), user.getNewsSource());
     }
 
     public void logout() {
