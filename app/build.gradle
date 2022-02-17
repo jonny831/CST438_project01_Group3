@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    testImplementation 'org.testng:testng:6.9.6'
     def room_version = "2.4.1"
     def nav_version = "2.4.1"
 

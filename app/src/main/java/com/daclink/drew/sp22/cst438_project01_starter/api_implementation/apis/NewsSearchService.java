@@ -11,6 +11,7 @@ public interface NewsSearchService {
     Call<NewsResultsResponse> searchNews(
             @Query("q") String query,
             @Query("sources") String sources,
+            @Query("sortBy") String sortBy,
             @Query("apiKey") String apiKey
     );
 
@@ -18,6 +19,7 @@ public interface NewsSearchService {
     Call<NewsResultsResponse> searchTopHeadlines(
             @Query("q") String query,
             @Query("sources") String sources,
+            @Query("sortBy") String sortBy,
             @Query("apiKey") String apiKey
     );
 }

@@ -36,8 +36,8 @@ public class NewsRepository {
 
     }
 
-    public void searchNews(String keyword, String author, String apiKey) {
-        newsSearchService.searchNews(keyword, author, apiKey)
+    public void searchNews(String keyword, String author, String sortBy, String apiKey) {
+        newsSearchService.searchNews(keyword, author, sortBy, apiKey)
                 .enqueue(new Callback<NewsResultsResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<NewsResultsResponse> call, @NonNull Response<NewsResultsResponse> response) {
@@ -53,8 +53,8 @@ public class NewsRepository {
                 });
     }
 
-    public void searchTopHeadlines(String keyword, String author, String apiKey) {
-        newsSearchService.searchTopHeadlines(keyword, author, apiKey)
+    public void searchTopHeadlines(String keyword, String author, String sortBy, String apiKey) {
+        newsSearchService.searchTopHeadlines(keyword, author, sortBy, apiKey)
                 .enqueue(new Callback<NewsResultsResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<NewsResultsResponse> call, @NonNull Response<NewsResultsResponse> response) {
