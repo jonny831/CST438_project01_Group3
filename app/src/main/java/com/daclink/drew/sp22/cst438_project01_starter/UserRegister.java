@@ -60,7 +60,7 @@ public class UserRegister extends Fragment {
                 User user = mUserDAO.getUser(uName);
                 if (user == null) {
                     if (newPassword.equals(newVerPassword)) {
-                        mUserDAO.insertUser(new User(uName, newPassword));
+                        mUserDAO.insertUser(new User(uName, newPassword, ""));
                         Toast.makeText(getActivity(),"User created!",Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(),"Passwords should be the same!",Toast.LENGTH_SHORT).show();
