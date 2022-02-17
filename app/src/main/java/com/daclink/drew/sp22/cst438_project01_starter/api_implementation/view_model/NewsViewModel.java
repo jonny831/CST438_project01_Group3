@@ -22,12 +22,12 @@ public class NewsViewModel extends AndroidViewModel {
         newsResponseLiveData = newsRepository.getVolumesResponseLiveData();
     }
 
-    public void searchNews(String keyword, String source) {
-        newsRepository.searchNews(keyword, source, "22668da3374a4f8885c094cec719ae51");
+    public void searchNews(String keyword, String source, String sortBy) {
+        newsRepository.searchNews(keyword, source, sortBy, "22668da3374a4f8885c094cec719ae51");
     }
 
-    public void  searchTopHeadlines(String keyword, String source) {
-        newsRepository.searchTopHeadlines(keyword, source, "22668da3374a4f8885c094cec719ae51");
+    public void  searchTopHeadlines(String keyword, String source, String sortBy) {
+        newsRepository.searchTopHeadlines(keyword, source, sortBy, "22668da3374a4f8885c094cec719ae51");
     }
 
     public LiveData<NewsResultsResponse> getVolumesResponseLiveData() {

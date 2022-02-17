@@ -30,8 +30,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     private User user;
     private UserDAO userDAO;
-    public Button updateFilter;
-    public Button newsSource;
     private NewsViewModel viewModel;
     private NewsResultsAdapter adapter;
     private EditText searchText;
@@ -41,8 +39,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-//        Button updateFilter = (Button)findViewById(R.id.addBtn);
-
 
         // Check if logged in
         userDAO = UserDb.getInstance(getContext()).getPersonDAO();
@@ -52,7 +48,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             if(user == null) { logout(); }
         } else { logout(); }
 
-        // Setup view model
+        // Setup view model for search results
         adapter = new NewsResultsAdapter();
         viewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
         viewModel.init();
@@ -65,8 +61,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         binding.newsSourceBtn.setOnClickListener(v1 -> updateNewsSource(v1, user));
         return binding.getRoot();
-
-
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -76,14 +70,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         searchText = view.findViewById(R.id.search);
-
-        binding.genre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
-            }
-        });
 
         binding.logoutBtn.setOnClickListener(view1 -> logout());
         binding.searchBtn.setOnClickListener(view1 -> search());
@@ -102,11 +88,14 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         TextView output = binding.newsSourceEditText;
         output.setText("");
         output.setHint("Success! News set to " + u.getNewsSource());
-
     }
 
     public void search() {
-        viewModel.searchNews(searchText.getText().toString(), user.getNewsSource());
+        String sortBy = "";
+        if(binding.date.isChecked()) { sortBy = "publishedAt"; }
+        else if(binding.popularity.isChecked()) { sortBy = "popularity"; }
+        else if(binding.relevancy.isChecked()) { sortBy = "relevancy"; }
+        viewModel.searchNews(searchText.getText().toString(), user.getNewsSource(), sortBy);
     }
 
     public void logout() {
@@ -117,11 +106,6 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 .navigate(R.id.action_SecondFragment_to_FirstFragment);
     }
 
-
-//    @Override
-//    public void onClick(View v) {
-//
-//    }
     public void openNews(){
         Intent intent = new Intent(getActivity(), NewsView.class);
         startActivity(intent);
