@@ -3,10 +3,12 @@ package com.daclink.drew.sp22.cst438_project01_starter;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import java.util.Objects;
 
 /**
  * Class storing information about a particular user
  */
+  
 @Entity(tableName = "User")
 public class User {
     @PrimaryKey(autoGenerate = true)
@@ -49,6 +51,20 @@ public class User {
 
     public void setNewsSource(String newsSource) {
         this.newsSource = newsSource;
+    }
+
+    //for Test cases
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return username.equals(user.username) && password.equals(user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password);
     }
 
     @NonNull
