@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * Class storing information about a particular user
+ */
 @Entity(tableName = "User")
 public class User {
     @PrimaryKey(autoGenerate = true)

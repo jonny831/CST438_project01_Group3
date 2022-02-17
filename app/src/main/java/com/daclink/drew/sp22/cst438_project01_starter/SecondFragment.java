@@ -20,10 +20,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daclink.drew.sp22.cst438_project01_starter.api_implementation.NewsResultsAdapter;
+import com.daclink.drew.sp22.cst438_project01_starter.api_implementation.apis.NewsSearchService;
 import com.daclink.drew.sp22.cst438_project01_starter.api_implementation.models.NewsResultsResponse;
 import com.daclink.drew.sp22.cst438_project01_starter.api_implementation.view_model.NewsViewModel;
 import com.daclink.drew.sp22.cst438_project01_starter.databinding.FragmentSecondBinding;
 
+/**
+ * Fragment displaying the search page
+ */
 public class SecondFragment extends Fragment implements View.OnClickListener {
 
     private FragmentSecondBinding binding;
@@ -59,7 +63,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         });
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
-        binding.newsSourceBtn.setOnClickListener(v1 -> updateNewsSource(v1, user));
+        binding.newsSourceBtn.setOnClickListener(v1 -> updateNewsSource());
         return binding.getRoot();
     }
 
@@ -72,6 +76,7 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
             output.setHint("News source currently set to " + user.getNewsSource());
         }
 
+        // Setup recycler view
         RecyclerView recyclerView = view.findViewById(R.id.search_results_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -87,7 +92,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         binding = null;
     }
 
-    public void updateNewsSource(View v, User u) {
+    /**
+     * Updates the users preferred news source from the text box
+     */
+    public void updateNewsSource() {
         System.out.println("SUCCESSFULLY UPDATED USER NEWS SOURCE");
         String news = binding.newsSourceEditText.getText().toString();
         user.setNewsSource(news);
@@ -97,6 +105,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         output.setHint("Success! News set to " + user.getNewsSource());
     }
 
+    /**
+     * Used to search the news API for news articles through the view model
+     * using the configured settings
+     */
     public void search() {
         String sortBy = "";
         if(binding.date.isChecked()) { sortBy = "publishedAt"; }
@@ -105,6 +117,10 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
         viewModel.searchNews(searchText.getText().toString(), user.getNewsSource(), sortBy);
     }
 
+    /**
+     * Used to logout the user. Clears the shared preference saving the logged in user and
+     * returns to the login screen.
+     */
     public void logout() {
         SharedPreferences sharedPref = requireContext().getSharedPreferences("SAVED_PREFS", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -113,6 +129,9 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
                 .navigate(R.id.action_SecondFragment_to_FirstFragment);
     }
 
+    /**
+     * Used to open the associated news link
+     */
     public void openNews(){
         Intent intent = new Intent(getActivity(), NewsView.class);
         startActivity(intent);

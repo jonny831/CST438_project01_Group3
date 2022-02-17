@@ -1,13 +1,10 @@
 package com.daclink.drew.sp22.cst438_project01_starter;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +16,10 @@ import android.widget.Toast;
 import com.daclink.drew.sp22.cst438_project01_starter.databinding.FragmentFirstBinding;
 import com.daclink.drew.sp22.cst438_project01_starter.databinding.FragmentUserRegisterBinding;
 
+/**
+ * Fragment displaying the new user creation screen
+ */
 public class UserRegister extends Fragment {
-    public static final String USER_ID = "UserId";
     private FragmentUserRegisterBinding binding;
 
     private EditText mUsername;
@@ -28,16 +27,11 @@ public class UserRegister extends Fragment {
     private EditText mVerPassword;
 
     private UserDAO mUserDAO;
-    SharedPreferences sharedPref;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
-        // Check if already logged in
-        sharedPref = requireContext().getSharedPreferences("SAVED_PREFS", Context.MODE_PRIVATE);
-        int userId = sharedPref.getInt(USER_ID, -1);
         binding = FragmentUserRegisterBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
