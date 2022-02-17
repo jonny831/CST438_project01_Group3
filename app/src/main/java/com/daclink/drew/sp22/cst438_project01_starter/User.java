@@ -50,6 +50,7 @@ public class User {
         this.newsSource = newsSource;
     }
 
+    //for Test cases
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
