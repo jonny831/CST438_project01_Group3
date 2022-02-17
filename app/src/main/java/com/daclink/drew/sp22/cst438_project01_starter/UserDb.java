@@ -6,6 +6,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+/**
+ * Room database used to access the user table
+ * @see androidx.room.RoomDatabase
+ * @see UserDAO
+ */
 @Database(entities = {User.class}, version = 3)
 public abstract class UserDb extends RoomDatabase {
     private static UserDb instance; // singleton pattern

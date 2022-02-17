@@ -5,6 +5,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Used to store all the results in a response from a query of the news API
+ * @link newsAPI.org
+ * @see com.daclink.drew.sp22.cst438_project01_starter.api_implementation.apis.NewsSearchService
+ */
 public class NewsResultsResponse {
     @SerializedName("totalResults")
     @Expose

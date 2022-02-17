@@ -22,6 +22,9 @@ import com.daclink.drew.sp22.cst438_project01_starter.databinding.FragmentFirstB
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Fragment displaying the login page
+ */
 public class FirstFragment extends Fragment {
     public static final String USER_ID = "UserId";
     private FragmentFirstBinding binding;
@@ -84,14 +87,23 @@ public class FirstFragment extends Fragment {
 
     }
 
-    public void register(){
+    /**
+     * Used to navigate to the user register fragment
+     */
+    public void register() {
         SharedPreferences sharedPref = requireContext().getSharedPreferences("SAVED_PREFS", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(FirstFragment.USER_ID, -1).apply();
         NavHostFragment.findNavController(FirstFragment.this)
-                .navigate(R.id.action_FirstFragment_to_userRegister);    }
+                .navigate(R.id.action_FirstFragment_to_userRegister);
+    }
 
-    public void login(int userId) {
+    /**
+     * Used to login. Navigates to the search fragment. Stores the user id
+     * so that it can be accessed in the next fragment.
+     * @param userId The id of the user that is logging in.
+     */
+    private void login(int userId) {
         // Pass user id to next fragment
         Bundle bundle = new Bundle();
         bundle.putSerializable(USER_ID, userId);
