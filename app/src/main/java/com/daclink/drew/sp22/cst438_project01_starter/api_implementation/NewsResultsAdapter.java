@@ -16,6 +16,10 @@ import com.daclink.drew.sp22.cst438_project01_starter.api_implementation.models.
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter for the recycler view used to display news search results.
+ * @see androidx.recyclerview.widget.RecyclerView.Adapter
+ */
 public class NewsResultsAdapter extends RecyclerView.Adapter<NewsResultsAdapter.NewsSearchResultHolder> {
     private List<NewsResult> results = new ArrayList<>();
 
@@ -34,6 +38,7 @@ public class NewsResultsAdapter extends RecyclerView.Adapter<NewsResultsAdapter.
         holder.titleTextView.setText(newsResult.getTitle());
         holder.publishedDateTextView.setText(newsResult.getPublicationDate());
 
+        // formatting image
         if (newsResult.getImageUrl() != null) {
             String imageUrl = newsResult.getImageUrl()
                     .replace("http://", "https://");
@@ -52,16 +57,27 @@ public class NewsResultsAdapter extends RecyclerView.Adapter<NewsResultsAdapter.
         }
     }
 
+    /**
+     * Used to get the total number of search results
+     * @return the total number of search results
+     */
     @Override
     public int getItemCount() {
         return results.size();
     }
 
+    /**
+     * Used to set the results of a search
+     * @param results the results of a search
+     */
     public void setResults(List<NewsResult> results) {
         this.results = results;
         notifyDataSetChanged();
     }
 
+    /**
+     * Used to hold the results of a search
+     */
     class NewsSearchResultHolder extends RecyclerView.ViewHolder {
         private TextView titleTextView;
         private TextView sourceTextView;

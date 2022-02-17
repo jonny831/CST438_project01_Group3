@@ -3,9 +3,12 @@ package com.daclink.drew.sp22.cst438_project01_starter;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
 import java.util.Objects;
 
+/**
+ * Class storing information about a particular user
+ */
+  
 @Entity(tableName = "User")
 public class User {
     @PrimaryKey(autoGenerate = true)
