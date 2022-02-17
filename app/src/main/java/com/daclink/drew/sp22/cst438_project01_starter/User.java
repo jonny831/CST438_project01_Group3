@@ -11,12 +11,14 @@ public class User {
     public Integer uid;
     private String username;
     private String password;
+    @NonNull
     private String newsSource;
 
     public User() {
+        newsSource = "";
     }
 
-    public User(String username, String password, String newsSource) {
+    public User(String username, String password, @NonNull String newsSource) {
         this.username = username;
         this.password = password;
         this.newsSource = newsSource;
